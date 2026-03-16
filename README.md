@@ -3,6 +3,10 @@
 - Community Discord: https://discord.com/invite/dsAz2g9S8v
 - RPCS3 Wiki: https://wiki.rpcs3.net/index.php?title=NHL_14
 
+## Installation for server owners
+
+- See [Guide to install standalone NHL legacy server on Ubunutu.md](https://github.com/ZamboniDevelopment/Zamboni14Legacy/blob/master/Guide%20to%20install%20standalone%20NHL%20legacy%20server%20on%20Ubunutu.md)
+
 ## Credits and Resources
 
 - [BlazeSDK](https://github.com/Aim4kill/BlazeSDK) By [@Aim4kill](https://github.com/Aim4kill)
