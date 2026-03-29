@@ -1,16 +1,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Esto copia TODO el contenido de tu GitHub al servidor
+# Copiamos absolutamente todo el repositorio al servidor de Railway
 COPY . .
 
-# Usamos este comando para que busque el proyecto solito, sin importar el nombre de la carpeta
-RUN dotnet restore $(find . -name "*.csproj")
-RUN dotnet publish $(find . -name "*.csproj") -c Release -o out
+# Entramos a la carpeta donde está el archivo de solución (.sln) o el proyecto
+# Y restauramos todo de una sola vez
+RUN dotnet restore Zamboni14Legacy.sln || dotnet restore Zamboni.Server/Zamboni.Server.csproj || dotnet restore Zamboni14Legacy.csproj
+
+# Compilamos ignorando las advertencias de versiones viejas (como la de HashLib)
+RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out .
 
-# Ejecutamos el servidor (aquí no importa la carpeta, solo el nombre del archivo final)
-ENTRYPOINT ["dotnet", "Zamboni.Server.dll"]
+# El nombre del archivo que arranca el servidor
+ENTRYPOINT ["dotnet", "Zamboni14Legacy.dll"]
